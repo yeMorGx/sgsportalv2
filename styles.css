@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
-    overflow: scroll;
 }
 
 :root {
@@ -117,17 +116,29 @@ input, select {
 .span-3{ grid-column: span 3; }
 .span-2{ grid-column: span 2; }
 
-.actions{
-  display:flex;
-  justify-content:flex-end;
-}
 
 .remover{
-  height: 36px;
-  padding: 0 14px;
-  border: 1px solid var(--border);
-  background:#fff;
-  cursor:pointer;
+    width: 10%;
+    padding: 4px;
+    border: 1px solid red;
+    border-radius: 40px;
+    margin: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.remover:hover {
+    background-color: rgb(255, 44, 44);
+    color: #fff;
+}
+
+.remover:focus {
+    box-shadow: red;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    
 }
 
 /* responsivo */
