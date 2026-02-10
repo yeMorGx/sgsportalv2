@@ -135,6 +135,7 @@ input, select {
 .span-3{ grid-column: span 3; }
 .span-2{ grid-column: span 2; }
 
+<<<<<<< HEAD
 .actions{
 
 }
@@ -149,6 +150,31 @@ input, select {
     background-color: rgb(224, 0, 0);
     color: #fff;
 
+=======
+
+.remover{
+    width: 10%;
+    padding: 4px;
+    border: 1px solid red;
+    border-radius: 40px;
+    margin: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.remover:hover {
+    background-color: rgb(255, 44, 44);
+    color: #fff;
+}
+
+.remover:focus {
+    box-shadow: red;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    
+>>>>>>> 1a93872af58b940d8cfe6790d1b0dea33ad00ac2
 }
 
 /* responsivo */
