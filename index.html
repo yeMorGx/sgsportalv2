@@ -8,6 +8,7 @@
   </head>
   <body>
     <header>
+      <section>
       <div class="topHeader">
         <p>Portal SGS v2.0.0.0</p>
         <a href="#">Entrar</a>
@@ -20,16 +21,17 @@
           + Nova Marcação
         </button>
       </div>
+      </section>
     </header>
-
+    <section>
     <div id="listaMarcacao"></div>
     <button id="enviarTudo" type="button">Enviar todas as marcações</button>
+
+      <div class="bar"></div>
 
     <template id="tplMarcacao">
       <form class="marcacao">
         <fieldset>
-          <legend>Marcação</legend>
-
           <div class="grid">
             <div class="field span-8">
               <label>Ponto de Marcação:</label>
@@ -204,6 +206,7 @@
         </fieldset>
       </form>
     </template>
+    </section>
   </body>
   <script src="scripts.js"></script>
 </html>
