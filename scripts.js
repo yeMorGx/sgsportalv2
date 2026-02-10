@@ -5,8 +5,6 @@ const btnEnviarTudo = document.getElementById("enviarTudo");
 
 let contador = 0;
 
-
-
 /* ========= REGRAS DE UI (NÃO QUEBRA NADA) ========= */
 function atualizarUI() {
   const forms = lista.querySelectorAll("form.marcacao");
@@ -25,14 +23,23 @@ function atualizarUI() {
 }
 /* ================================================ */
 
+/* ======= AQUI: função que aplica regras em 1 form ======= */
+function ligarRegrasDoForm(form) {
+  // --- regra: transporte -> ativa/desativa nome do navio
+  const transporte = form.querySelector('select[name="transporte"]');
+  const nomeNavio = form.querySelector('input[name="nomeNavio"]');
 
+  function atualizarTransporte() {
+    if (!transporte || !nomeNavio) return;
+    const maritimo = transporte.value === "t1";
+    nomeNavio.disabled = !maritimo;
+    if (!maritimo) nomeNavio.value = "";
+  }
 
-function addMarcacao() {
-  contador++;
-
-  // clona o template
-  const frag = tpl.content.cloneNode(true);
-  const form = frag.querySelector("form.marcacao");
+  if (transporte) {
+    transporte.addEventListener("change", atualizarTransporte);
+    atualizarTransporte(); // já ajusta quando cria a marcação
+  }
 
   // deixa os radios independentes por marcação
   form.querySelectorAll('input[type="radio"]').forEach((r) => {
@@ -55,88 +62,38 @@ function addMarcacao() {
   // botão remover
   form.querySelector(".remover")?.addEventListener("click", () => {
     form.remove();
-    atualizarUI(); // ✅ atualiza regras após remover
+    atualizarUI();
   });
 
-  // submit do form (pra não recarregar a página)
+  // submit do form
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     const fd = new FormData(form);
     const dados = Object.fromEntries(fd.entries());
-
     console.log("SALVAR MARCAÇÃO:", dados);
     alert("Marcação salva (veja no console).");
   });
+}
+/* ======================================================= */
 
-  lista.appendChild(form);
-  atualizarUI(); // ✅ atualiza regras após adicionar
+function addMarcacao() {
+  contador++;
+
+  // clona o template
+  const frag = tpl.content.cloneNode(true);
+  const form = frag.querySelector("form.marcacao");
+
+  // aplica todas as regras no form recém-criado
+  ligarRegrasDoForm(form);
+
+  lista.appendChild(frag); // (melhor anexar o fragmento todo)
+  atualizarUI();
 }
 
-btnAdd.addEventListener("click", addMarcacao);
+/* se você tiver o botão +Nova Marcação */
+btnAdd?.addEventListener("click", addMarcacao);
 
-// já cria a primeira marcação ao abrir (opcional)
+// inicia UI (se não tiver nenhuma marcação no começo)
 addMarcacao();
 
-btnEnviarTudo.addEventListener("click", () => {
-  const forms = lista.querySelectorAll("form.marcacao");
-
-  if (forms.length === 0) {
-    alert("Nenhuma marcação para enviar.");
-    return;
-  }
-
-  const todasMarcacoes = [];
-
-  // ⚠️ não use throw dentro do forEach, pode quebrar fluxo feio
-  for (let i = 0; i < forms.length; i++) {
-    const form = forms[i];
-    const fd = new FormData(form);
-    const dados = Object.fromEntries(fd.entries());
-
-    // validação simples
-    if (!dados.pontoMarcacao || !dados.dataMarcacao) {
-      alert(`Marcação ${i + 1} incompleta`);
-      return;
-    }
-
-    todasMarcacoes.push({
-      numero: i + 1,
-      ...dados,
-    });
-  }
-
-  console.log("DADOS PARA ENVIO:", todasMarcacoes);
-
-  alert("Todas as marcações prontas para envio (veja o console).");
-});
-
-
-function cnpjMask(input) {
-  input.addEventListener("input", () => {
-
-    let v = input.value;
-
-    // 1) remove tudo que não for número
-    v = v.replace(/\D/g, "");
-
-    // 2) limita a 14 números
-    v = v.slice(0, 14);
-
-    // 3) monta o formato do CNPJ
-    if (v.length > 12) {
-      v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
-    } else if (v.length > 8) {
-      v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, "$1.$2.$3/$4");
-    } else if (v.length > 5) {
-      v = v.replace(/^(\d{2})(\d{3})(\d+)/, "$1.$2.$3");
-    } else if (v.length > 2) {
-      v = v.replace(/^(\d{2})(\d+)/, "$1.$2");
-    }
-
-    input.value = v;
-  });
-}
-
-// garante o estado certo ao carregar
 atualizarUI();

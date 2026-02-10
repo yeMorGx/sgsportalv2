@@ -58,12 +58,12 @@
               <input type="date" name="dataNf" required />
             </div>
 
-            <div class="field span-4">
+            <div class="field span-2">
               <label>Nº NF:</label>
               <input type="text" name="numNf" required />
             </div>
 
-            <div class="field span-2">
+            <div class="field span-3">
               <label>Tipo NF:</label>
               <div class="inline">
                 <label
@@ -77,7 +77,7 @@
               </div>
             </div>
 
-            <div class="field span-2">
+            <div class="field span-3">
               <label>Série NF:</label>
               <input type="text" name="serieNf" />
             </div>
@@ -89,7 +89,7 @@
 
             <div class="field span-9">
               <label>Razão Social Agente Econômico:</label>
-              <input type="text" name="razaoAgente" disabled />
+              <input placeholder="Insira o CNPJ" type="text" name="razaoAgente" disabled />
             </div>
 
             <div class="field span-3">
@@ -99,56 +99,55 @@
 
             <div class="field span-9">
               <label>Razão Social Destinatário:</label>
-              <input type="text" name="razaoDest" disabled />
+              <input placeholder="Insira o CNPJ" type="text" name="razaoDest" disabled />
             </div>
 
             <div class="field span-4">
               <label>Tipo de PMC:</label>
               <select name="tipoPmc">
                 <option value="">Selecione</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <option value="tipo3">Tipo 3</option>
+                <option value="tipo1">Nacional</option>
+                <option value="tipo2">Importado</option>
               </select>
             </div>
 
             <div class="field span-4">
               <label>Meio de Transporte:</label>
-              <select name="transporte">
-                <option value="">Selecione</option>
-                <option value="t1">Transporte 1</option>
-                <option value="t2">Transporte 2</option>
+              <select name="transporte" id="terrestre">
+                <option value="selecioneT">Selecione</option>
+                <option value="t1">Marítimo</option>
+                <option value="t2">Terrestre</option>
               </select>
             </div>
 
             <div class="field span-4">
               <label>Nome do Navio:</label>
-              <input type="text" name="nomeNavio" disabled />
+              <input type="text" name="nomeNavio" id="nomeNavio" disabled />
             </div>
 
             <div class="field span-6">
-              <label>LI Original:</label>
+              <label>LPCO Original:</label>
               <input type="text" name="liOriginal" />
             </div>
 
             <div class="field span-6">
-              <label>LI Substitutiva:</label>
+              <label>LPCO Substitutiva:</label>
               <input type="text" name="liSubstitutiva" />
             </div>
 
             <div class="field span-6">
               <label>Transportadora:</label>
-              <input type="text" name="transportadora" />
+              <input disabled type="text" name="transportadora" />
             </div>
 
             <div class="field span-3">
               <label>Placa do caminhão:</label>
-              <input type="text" name="placaCaminhao" />
+              <input disabled type="text" name="placaCaminhao" />
             </div>
 
             <div class="field span-3">
               <label>Placa da Carreta 1:</label>
-              <input type="text" name="placaCarreta1" />
+              <input disabled type="text" name="placaCarreta1" />
             </div>
 
             <div class="field span-4">
@@ -177,12 +176,12 @@
 
             <div class="field span-4">
               <label>Litros Total do Marcador:</label>
-              <input type="number" step="0.01" name="litrosTotalMarcador" />
+              <input disabled type="number" step="0.01" name="litrosTotalMarcador" />
             </div>
 
             <div class="field span-4">
               <label>Tipo de Marcador:</label>
-              <select name="tipoMarcador" required>
+              <select disabled name="tipoMarcador" required>
                 <option value="">Selecione</option>
                 <option value="h3">H3</option>
                 <option value="x3">X3</option>
@@ -191,7 +190,7 @@
 
             <div class="field span-4">
               <label>Motivo da Não Marcação:</label>
-              <select name="motivoNaoMarcacao">
+              <select disabled name="motivoNaoMarcacao">
                 <option value="">Selecione</option>
                 <option value="opt1">Opção 1</option>
                 <option value="opt2">Opção 2</option>
@@ -208,5 +207,5 @@
     </template>
     </section>
   </body>
-  <script src="scripts.js"></script>
+  <script src="scripts.js" defer></script>
 </html>
