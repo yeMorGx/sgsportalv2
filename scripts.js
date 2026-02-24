@@ -1,3 +1,9 @@
+Inputmask.extendDefaults({
+  placeholder: "",
+  showMaskOnHover: false,
+  showMaskOnFocus: false
+});
+
 const btnAdd = document.getElementById("addMarcacao");
 const lista = document.getElementById("listaMarcacao");
 const tpl = document.getElementById("tplMarcacao");
@@ -25,21 +31,136 @@ function atualizarUI() {
 
 /* ======= AQUI: função que aplica regras em 1 form ======= */
 function ligarRegrasDoForm(form) {
+
+  Inputmask("99/99.9999.9999").mask(
+  form.querySelector('input[name="codLata"]')
+);
+
+Inputmask({
+  placeholder: "",
+  showMaskOnHover: false,
+  showMaskOnFocus: false,
+  rightAlign: false
+}).mask(form.querySelector('input[name="volumeUtilizado"]'));
+
+
+
   // --- regra: transporte -> ativa/desativa nome do navio
   const transporte = form.querySelector('select[name="transporte"]');
   const nomeNavio = form.querySelector('input[name="nomeNavio"]');
+  const transportadora = form.querySelector('input[name="transportadora"]');
+  const placaCaminhao = form.querySelector('input[name="placaCaminhao"]');
+  const placaCarreta1 = form.querySelector('input[name="placaCarreta1"]');
 
   function atualizarTransporte() {
-    if (!transporte || !nomeNavio) return;
+    if (!transporte || !nomeNavio || !transportadora || !placaCaminhao || !placaCarreta1) return;
     const maritimo = transporte.value === "t1";
+    // Navio
     nomeNavio.disabled = !maritimo;
     if (!maritimo) nomeNavio.value = "";
+
+    // Transportadora, Carreta, Caminhão
+    transportadora.disabled = maritimo;
+    placaCaminhao.disabled = maritimo;
+    placaCarreta1.disabled = maritimo;
+    if (maritimo) {
+      transportadora.value = "";
+      placaCaminhao.value = "";
+      placaCarreta1.value = "";
+    }
   }
 
   if (transporte) {
     transporte.addEventListener("change", atualizarTransporte);
     atualizarTransporte(); // já ajusta quando cria a marcação
   }
+
+  const pmcMarcado = form.querySelector('select[name="pmcMarcado"]');
+  const litrosTotalMarcador = form.querySelector('input[name="litrosTotalMarcador"]');
+  const tipoMarcador = form.querySelector('select[name="tipoMarcador"]');
+  const motivoNaoMarcacao = form.querySelector('select[name="motivoNaoMarcacao"]');
+  const obs = form.querySelector('#obs');
+
+  function atualizarPmc() {
+
+    if (!pmcMarcado || !litrosTotalMarcador || !tipoMarcador || !motivoNaoMarcacao || !obs) return;
+
+    const pmcSim = pmcMarcado.value === "sim";
+    const pmcNao = pmcMarcado.value === "nao";
+
+    litrosTotalMarcador.disabled = !pmcSim;
+    tipoMarcador.disabled = !pmcSim;
+    motivoNaoMarcacao.disabled = !pmcNao;
+
+    if (obs) {
+      obs.classList.toggle("hidden", !pmcNao);
+    }
+
+    if (!pmcSim) {
+      litrosTotalMarcador.value = "";
+      tipoMarcador.value = "";
+    }
+
+    if (!pmcNao) {
+      motivoNaoMarcacao.value = "";
+
+    }
+  }
+
+  if (pmcMarcado) {
+    pmcMarcado.addEventListener("change", atualizarPmc);
+    atualizarPmc();
+  }
+
+  // ===== Latas =====
+  const btnAdicionarLata = form.querySelector(".adicionarLata");
+  const listaLatas = form.querySelector("#lista");
+
+  let contadorLata = 0;
+
+  function adicionar() {
+    const codigo = form.querySelector('input[name="codLata"]');
+    const volume = form.querySelector('input[name="volumeUtilizado"]');
+
+    if (!codigo || !volume || !listaLatas) return;
+    if (!codigo.value || !volume.value) return;
+
+    contadorLata++;
+
+    const item = document.createElement("div");
+    item.classList.add("lataItem");
+
+   
+item.innerHTML = `
+
+  <div class="numero">${contador}</div>
+
+  <div class="campo">
+  
+    <input type="text" value="${codigo.value}" disabled>
+  </div>
+
+  <div class="campo">
+    <input type="text" value="${volume.value}" disabled>
+  </div>
+
+  <button type="button" class="removerLata">X</button>
+`;
+
+    // remover lata
+    item.querySelector(".removerLata").addEventListener("click", () => {
+      item.remove();
+    });
+
+    // último adicionado fica em cima
+    listaLatas.prepend(item);
+
+    // limpar campos
+    codigo.value = "";
+    volume.value = "";
+  }
+
+  btnAdicionarLata?.addEventListener("click", adicionar);
 
   // deixa os radios independentes por marcação
   form.querySelectorAll('input[type="radio"]').forEach((r) => {

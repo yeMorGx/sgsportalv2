@@ -1,211 +1,263 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Portal SGS</title>
   </head>
+
   <body>
     <header>
       <section>
-      <div class="topHeader">
-        <p>Portal SGS v2.0.0.0</p>
-        <a href="#">Entrar</a>
-      </div>
-      <div class="headerBottom">
-        <img class="logo" src="/imgs/sgsLogo.png" />
-      </div>
-      <div class="addMarcacao-space">
-        <button class="addMarcacao" id="addMarcacao" type="button">
-          + Nova Marcação
-        </button>
-      </div>
+        <div class="topHeader">
+          <p>Portal SGS v2.0.0.0</p>
+          <a href="#">Entrar</a>
+        </div>
+        <div class="headerBottom">
+          <img class="logo" src="/imgs/sgsLogo.png" />
+        </div>
+        <div class="addMarcacao-space">
+          <button class="addMarcacao" id="addMarcacao" type="button">
+            + Nova Marcação
+          </button>
+        </div>
       </section>
     </header>
     <section>
-    <div id="listaMarcacao"></div>
-    <button id="enviarTudo" type="button">Enviar todas as marcações</button>
+      <div id="listaMarcacao"></div>
+      <button id="enviarTudo" type="button">Enviar todas as marcações</button>
 
       <div class="bar"></div>
 
-    <template id="tplMarcacao">
-      <form class="marcacao">
-        <fieldset>
-          <div class="grid">
-            <div class="field span-8">
-              <label>Ponto de Marcação:</label>
-              <select name="pontoMarcacao" required>
-                <option value="">Selecione um ponto</option>
-                <option value="ponto1">Ponto 1</option>
-                <option value="ponto2">Ponto 2</option>
-                <option value="ponto3">Ponto 3</option>
-              </select>
-            </div>
+      <template id="tplMarcacao">
+        <form class="marcacao">
+          <fieldset>
+            <div class="grid">
+              <div class="field span-8">
+                <label>Ponto de Marcação:</label>
+                <select name="pontoMarcacao" required>
+                  <option value="">Selecione um ponto</option>
+                  <option value="ponto1">Ponto 1</option>
+                  <option value="ponto2">Ponto 2</option>
+                  <option value="ponto3">Ponto 3</option>
+                </select>
+              </div>
 
-            <div class="field span-2">
-              <label>Data de Marcação:</label>
-              <input type="date" name="dataMarcacao" required />
-            </div>
+              <div class="field span-2">
+                <label>Data de Marcação:</label>
+                <input type="date" name="dataMarcacao" required />
+              </div>
 
-            <div class="field span-2">
-              <label>Hora da Marcação:</label>
-              <input type="time" name="horaMarcacao" required />
-            </div>
+              <div class="field span-2">
+                <label>Hora da Marcação:</label>
+                <input type="time" name="horaMarcacao" required />
+              </div>
 
-            <div class="field span-4">
-              <label>Data da NF de Movimentação:</label>
-              <input type="date" name="dataNf" required />
-            </div>
+              <div class="field span-4">
+                <label>Data da NF de Movimentação:</label>
+                <input type="date" name="dataNf" required />
+              </div>
 
-            <div class="field span-2">
-              <label>Nº NF:</label>
-              <input type="text" name="numNf" required />
-            </div>
+              <div class="field span-2">
+                <label>Nº NF:</label>
+                <input type="text" name="numNf" required />
+              </div>
 
-            <div class="field span-3">
-              <label>Tipo NF:</label>
-              <div class="inline">
-                <label
-                  ><input type="radio" name="tipoNf" value="manual" required />
-                  Manual</label
-                >
-                <label
-                  ><input type="radio" name="tipoNf" value="eletronica" />
-                  Eletrônica</label
-                >
+              <div class="field span-3">
+                <label>Tipo NF:</label>
+                <div class="inline">
+                  <label
+                    ><input
+                      type="radio"
+                      name="tipoNf"
+                      value="manual"
+                      required
+                    />
+                    Manual</label
+                  >
+                  <label
+                    ><input type="radio" name="tipoNf" value="eletronica" />
+                    Eletrônica</label
+                  >
+                </div>
+              </div>
+
+              <div class="field span-3">
+                <label>Série NF:</label>
+                <input type="text" name="serieNf" />
+              </div>
+
+              <div class="field span-3">
+                <label>CNPJ Agente Econômico:</label>
+                <input type="text" name="cnpjAgente" />
+              </div>
+
+              <div class="field span-9">
+                <label>Razão Social Agente Econômico:</label>
+                <input
+                  placeholder="Insira o CNPJ"
+                  type="text"
+                  name="razaoAgente"
+                  disabled
+                />
+              </div>
+
+              <div class="field span-3">
+                <label>CNPJ Destinatário:</label>
+                <input type="text" name="cnpjDest" />
+              </div>
+
+              <div class="field span-9">
+                <label>Razão Social Destinatário:</label>
+                <input
+                  placeholder="Insira o CNPJ"
+                  type="text"
+                  name="razaoDest"
+                  disabled
+                />
+              </div>
+
+              <div class="field span-4">
+                <label>Tipo de PMC:</label>
+                <select name="tipoPmc">
+                  <option value="">Selecione</option>
+                  <option value="tipo1">Nacional</option>
+                  <option value="tipo2">Importado</option>
+                </select>
+              </div>
+
+              <div class="field span-4">
+                <label>Meio de Transporte:</label>
+                <select name="transporte" id="terrestre">
+                  <option value="selecioneT">Selecione</option>
+                  <option value="t1">Marítimo</option>
+                  <option value="t2">Terrestre</option>
+                </select>
+              </div>
+
+              <div class="field span-4">
+                <label>Nome do Navio:</label>
+                <input type="text" name="nomeNavio" id="nomeNavio" disabled />
+              </div>
+
+              <div class="field span-6">
+                <label>LPCO Original:</label>
+                <input type="text" name="liOriginal" />
+              </div>
+
+              <div class="field span-6">
+                <label>LPCO Substitutiva:</label>
+                <input type="text" name="liSubstitutiva" />
+              </div>
+
+              <div class="field span-6">
+                <label>Transportadora:</label>
+                <input disabled type="text" name="transportadora" />
+              </div>
+
+              <div class="field span-3">
+                <label>Placa do caminhão:</label>
+                <input disabled type="text" name="placaCaminhao" />
+              </div>
+
+              <div class="field span-3">
+                <label>Placa da Carreta 1:</label>
+                <input disabled type="text" name="placaCarreta1" />
+              </div>
+
+              <div class="field span-4">
+                <label>Tipo de Solvente:</label>
+                <select name="tipoSolvente">
+                  <option value="">Selecione</option>
+                  <option value="solvente1">Solvente 1</option>
+                  <option value="solvente2">Solvente 2</option>
+                  <option value="solvente3">Solvente 3</option>
+                </select>
+              </div>
+
+              <div class="field span-4">
+                <label>Litros Solvente:</label>
+                <input type="number" step="0.01" name="litrosSolvente" />
+              </div>
+
+              <div class="field span-4">
+                <label>PMC Marcado:</label>
+                <select name="pmcMarcado" required>
+                  <option value="">Selecione</option>
+                  <option value="sim">Sim</option>
+                  <option value="nao">Não</option>
+                </select>
+              </div>
+
+              <div class="field span-4">
+                <label>Litros Total do Marcador:</label>
+                <input
+                  disabled
+                  type="number"
+                  step="0.01"
+                  name="litrosTotalMarcador"
+                />
+              </div>
+
+              <div class="field span-4">
+                <label>Tipo de Marcador:</label>
+                <select disabled name="tipoMarcador" required>
+                  <option value="select">Selecione</option>
+                  <option value="h3">H3</option>
+                  <option value="x3">X3</option>
+                </select>
+              </div>
+
+              <div class="field span-4">
+                <label>Motivo da Não Marcação:</label>
+                <select disabled name="motivoNaoMarcacao">
+                  <option value="">Selecione</option>
+                  <option value="opt1">Opção 1</option>
+                  <option value="opt2">Opção 2</option>
+                  <option value="opt3">Opção 3</option>
+                </select>
+              </div>
+
+              <div class="hidden obs field span-12" id="obs">
+                <label>Observações:</label>
+                <textarea name="observacoes" rows="3"></textarea>
+              </div>
+
+              <div class="lata span-12">
+                <p class="latasUtilizadas">Latas Utilizadas</p>
+
+                <div class="divisao">
+
+                <div class="lataFields">
+                  <div class="cod" id="codigo">
+                    <label>Código da Lata</label>
+                    <input type="text" name="codLata" />
+                  </div>
+
+                  <div class="volume" id="volume">
+                    <label>Volume Utilizado</label>
+                    <input type="text" name="volumeUtilizado" />
+                  </div>
+                  <button onclick="adicionar()" type="button" class="adicionarLata">
+                    Adicionar Lata
+                  </button>
+                  </div>
+
+                  <div id="lista"></div>
+                </div>
+              </div>
+
+              <div class="field span-12 actions">
+                <button type="button" class="remover">Remover</button>
               </div>
             </div>
-
-            <div class="field span-3">
-              <label>Série NF:</label>
-              <input type="text" name="serieNf" />
-            </div>
-
-            <div class="field span-3">
-              <label>CNPJ Agente Econômico:</label>
-              <input type="text" name="cnpjAgente" />
-            </div>
-
-            <div class="field span-9">
-              <label>Razão Social Agente Econômico:</label>
-              <input placeholder="Insira o CNPJ" type="text" name="razaoAgente" disabled />
-            </div>
-
-            <div class="field span-3">
-              <label>CNPJ Destinatário:</label>
-              <input type="text" name="cnpjDest" />
-            </div>
-
-            <div class="field span-9">
-              <label>Razão Social Destinatário:</label>
-              <input placeholder="Insira o CNPJ" type="text" name="razaoDest" disabled />
-            </div>
-
-            <div class="field span-4">
-              <label>Tipo de PMC:</label>
-              <select name="tipoPmc">
-                <option value="">Selecione</option>
-                <option value="tipo1">Nacional</option>
-                <option value="tipo2">Importado</option>
-              </select>
-            </div>
-
-            <div class="field span-4">
-              <label>Meio de Transporte:</label>
-              <select name="transporte" id="terrestre">
-                <option value="selecioneT">Selecione</option>
-                <option value="t1">Marítimo</option>
-                <option value="t2">Terrestre</option>
-              </select>
-            </div>
-
-            <div class="field span-4">
-              <label>Nome do Navio:</label>
-              <input type="text" name="nomeNavio" id="nomeNavio" disabled />
-            </div>
-
-            <div class="field span-6">
-              <label>LPCO Original:</label>
-              <input type="text" name="liOriginal" />
-            </div>
-
-            <div class="field span-6">
-              <label>LPCO Substitutiva:</label>
-              <input type="text" name="liSubstitutiva" />
-            </div>
-
-            <div class="field span-6">
-              <label>Transportadora:</label>
-              <input disabled type="text" name="transportadora" />
-            </div>
-
-            <div class="field span-3">
-              <label>Placa do caminhão:</label>
-              <input disabled type="text" name="placaCaminhao" />
-            </div>
-
-            <div class="field span-3">
-              <label>Placa da Carreta 1:</label>
-              <input disabled type="text" name="placaCarreta1" />
-            </div>
-
-            <div class="field span-4">
-              <label>Tipo de Solvente:</label>
-              <select name="tipoSolvente">
-                <option value="">Selecione</option>
-                <option value="solvente1">Solvente 1</option>
-                <option value="solvente2">Solvente 2</option>
-                <option value="solvente3">Solvente 3</option>
-              </select>
-            </div>
-
-            <div class="field span-4">
-              <label>Litros Solvente:</label>
-              <input type="number" step="0.01" name="litrosSolvente" />
-            </div>
-
-            <div class="field span-4">
-              <label>PMC Marcado:</label>
-              <select name="pmcMarcado" required>
-                <option value="">Selecione</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select>
-            </div>
-
-            <div class="field span-4">
-              <label>Litros Total do Marcador:</label>
-              <input disabled type="number" step="0.01" name="litrosTotalMarcador" />
-            </div>
-
-            <div class="field span-4">
-              <label>Tipo de Marcador:</label>
-              <select disabled name="tipoMarcador" required>
-                <option value="">Selecione</option>
-                <option value="h3">H3</option>
-                <option value="x3">X3</option>
-              </select>
-            </div>
-
-            <div class="field span-4">
-              <label>Motivo da Não Marcação:</label>
-              <select disabled name="motivoNaoMarcacao">
-                <option value="">Selecione</option>
-                <option value="opt1">Opção 1</option>
-                <option value="opt2">Opção 2</option>
-                <option value="opt3">Opção 3</option>
-              </select>
-            </div>
-
-            <div class="field span-12 actions">
-              <button type="button" class="remover">Remover</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </template>
+          </fieldset>
+        </form>
+      </template>
     </section>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/inputmask.min.js"></script>
   <script src="scripts.js" defer></script>
 </html>
